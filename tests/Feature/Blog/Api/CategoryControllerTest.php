@@ -12,7 +12,20 @@ class CategoryControllerTest extends TestCase
     {
         $response = $this->get($this->apiUrl . '/api' . '/category');
 
-        $response->assertStatus(200);
+        $response->assertOk();
+    }
+
+    public function testStoreCategory(): void
+    {
+        $response = $this->post(
+            $this->apiUrl . '/api' . '/category',
+            [
+                'title' => 'test_category' . time(),
+                'description' => 'test_description'
+            ],
+        );
+
+        $response->assertCreated();
     }
 
 
