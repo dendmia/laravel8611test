@@ -10,15 +10,21 @@ use Tests\TestCase;
 
 class TestApiControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    private string $apiUrl;
+
+    public function testExample(): void
     {
-        $response = $this->get(env('APP_URL') . '/api' . '/test_get');
+        $response = $this->get($this->apiUrl . '/api' . '/test_get');
 
         $response->assertStatus(200);
+    }
+
+    public function setUp(): void
+    {
+        if (!isset($this->apiUrl)) {
+            $this->apiUrl = env('APP_URL');
+        }
+
+        parent::setUp();
     }
 }

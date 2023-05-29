@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Blog\Api\CategoryController;
+use App\Http\Controllers\Blog\Api\PostController;
 use App\Http\Controllers\TestApiController;
 use App\Http\Middleware\TestApiMiddleware;
 use Illuminate\Http\Request;
@@ -21,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/test_get', [TestApiController::class, 'testGet'])->middleware(TestApiMiddleware::class);
+
+Route::get('/post', [PostController::class, 'index']);
+
+Route::get('/category', [CategoryController::class, 'index']);
