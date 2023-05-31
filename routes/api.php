@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/test_get', [TestApiController::class, 'testGet'])->middleware(TestApiMiddleware::class);
 
 Route::get('/post', [PostController::class, 'index']);
+Route::post('/post', [PostController::class, 'store']);
 
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);

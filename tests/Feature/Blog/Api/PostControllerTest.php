@@ -15,6 +15,21 @@ class PostControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testStorePost(): void
+    {
+        $response = $this->post(
+            uri: $this->apiUrl . '/api' . '/post',
+            data: [
+                'category_id' => 2,
+                'user_id' => 1,
+                'title' => 'test post',
+                'content_raw' => 'Soluta aut recusandae minima iusto aut magnam eum officiis eius adipisci fuga.',
+            ]
+        );
+
+        $response->assertCreated();
+    }
+
 
     public function setUp(): void
     {
