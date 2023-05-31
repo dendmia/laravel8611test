@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace App\Application\Blog\Post;
 
-use App\Models\BlogPost;
+use App\Domain\Blog\Post\Repository\PostRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class Application
 {
+    public function __construct(
+        private readonly PostRepositoryInterface $repository
+    ) {
+    }
 
     public function getAll(): Collection|array
     {
-        return BlogPost::all();
+        return $this->repository->getAll();
     }
 
     public function createPost(
@@ -23,15 +27,16 @@ class Application
         string  $contentRaw,
     ): void
     {
-        $model = new BlogPost();
-        $model->category_id = $categoryId;
-        $model->user_id = $userId;
-        $model->title = $title;
-        $model->excerpt = $excerpt ?? null;
-        $model->content_raw = $contentRaw;
+        $data = [
+            'category_id' => $categoryId,
+            'user_id' => $userId,
+            'slug' => $title . time(), //TODO
+            'title' => $title,
+            'excerpt' => $excerpt ?? null,
+            'content_raw' => $contentRaw,
+            'content_html' => '<text> ' . $contentRaw . ' </text>'
+        ];
 
-        $model->slug = $title . time(); //TODO
-        $model->content_html = '<text>' . $contentRaw . '</text>';
-        $model->save();
+        $this->repository->store($data);
     }
 }
