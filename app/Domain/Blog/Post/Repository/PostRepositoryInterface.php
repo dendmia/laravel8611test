@@ -10,7 +10,9 @@ interface PostRepositoryInterface
 {
     public function find(int $int): BlogPost;
 
-    public function store(array $data): void;
+    public function store(array $data): int;
 
     public function getAll();
+
+    public function update($data);
 }

@@ -39,4 +39,27 @@ class Application
 
         $this->repository->store($data);
     }
+
+    public function updatePost(
+        int     $id,
+        int     $categoryId,
+        int     $userId,
+        string  $title,
+        ?string $excerpt,
+        string  $contentRaw,
+    ): void
+    {
+        $data = [
+            'id' => $id,
+            'category_id' => $categoryId,
+            'user_id' => $userId,
+            'slug' => $title . time(), //TODO
+            'title' => $title,
+            'excerpt' => $excerpt,
+            'content_raw' => $contentRaw,
+            'content_html' => '<text> ' . $contentRaw . ' </text>'
+        ];
+
+        $this->repository->update($data);
+    }
 }

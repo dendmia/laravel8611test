@@ -13,24 +13,38 @@ class PostRepository implements PostRepositoryInterface
 
     public function find(int $int): BlogPost
     {
-        // TODO: Implement find() method.
+        return BlogPost::find($int);
     }
 
-    public function store(array $data): void
+    public function store(array $data): int
     {
-        $model = new BlogPost();
-        $model->category_id = $data['category_id'];
-        $model->user_id = $data['user_id'];
-        $model->title = $data['title'];
-        $model->excerpt = $data['excerpt'];
-        $model->content_raw = $data['content_raw'];
-        $model->slug = $data['slug'];
-        $model->content_html = $data['content_html'];
-        $model->saveOrFail();
+        $post = new BlogPost();
+        $post->category_id = $data['category_id'];
+        $post->user_id = $data['user_id'];
+        $post->title = $data['title'];
+        $post->excerpt = $data['excerpt'];
+        $post->content_raw = $data['content_raw'];
+        $post->slug = $data['slug'];
+        $post->content_html = $data['content_html'];
+        $post->saveOrFail();
+        return $post->id;
     }
 
     public function getAll(): Collection|array
     {
         return BlogPost::all();
+    }
+
+    public function update($data): void
+    {
+        $post = $this->find($data['id']);
+        $post->category_id = $data['category_id'];
+        $post->user_id = $data['user_id'];
+        $post->title = $data['title'];
+        $post->excerpt = $data['excerpt'];
+        $post->content_raw = $data['content_raw'];
+        $post->slug = $data['slug'];
+        $post->content_html = $data['content_html'];
+        $post->saveOrFail();
     }
 }

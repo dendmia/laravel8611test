@@ -26,6 +26,7 @@ Route::get('/test_get', [TestApiController::class, 'testGet'])->middleware(TestA
 
 Route::get('/post', [PostController::class, 'index']);
 Route::post('/post', [PostController::class, 'store']);
+Route::put('/post/{id}', [PostController::class, 'update'])->whereNumber('id');
 
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
