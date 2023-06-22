@@ -8,9 +8,9 @@ use App\Models\BlogCategory;
 
 interface CategoryRepositoryInterface
 {
-    public function find(int $id): BlogCategory;
+    public function find(int $id): ?BlogCategory;
 
-    public function store(array $data);
+    public function store(array $data): BlogCategory;
 
     public function getAll();
 }

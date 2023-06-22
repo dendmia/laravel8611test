@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Blog\Category;
 
 use App\Domain\Blog\Category\Repository\CategoryRepositoryInterface;
+use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Collection;
 
 class Application
@@ -14,7 +15,12 @@ class Application
     ) {
     }
 
-    public function create(string $title, string $description, ?int $parentId): void
+    public function get(int $id): ?BlogCategory
+    {
+        return $this->repository->find($id);
+    }
+
+    public function create(string $title, string $description, ?int $parentId): BlogCategory
     {
         $data = [
             'parent_id' => $parentId ?? 1,
@@ -23,7 +29,7 @@ class Application
             'description' => $description,
         ];
 
-        $this->repository->store($data);
+        return $this->repository->store($data);
     }
 
     public function getAll(): Collection|array

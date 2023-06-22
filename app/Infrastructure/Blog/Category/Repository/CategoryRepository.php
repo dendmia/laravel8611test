@@ -10,12 +10,12 @@ use App\Models\BlogCategory;
 class CategoryRepository implements CategoryRepositoryInterface
 {
 
-    public function find(int $id): BlogCategory
+    public function find(int $id): BlogCategory|null
     {
-        // TODO: Implement find() method.
+        return BlogCategory::findOrFail($id); //TODO: fix auto-completing
     }
 
-    public function store(array $data)
+    public function store(array $data): BlogCategory
     {
         $model = new BlogCategory();
         $model->parent_id = $data['parent_id'];
@@ -23,6 +23,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         $model->title = $data['title'];
         $model->description = $data['description'];
         $model->saveOrFail();
+
+        return $model;
     }
 
     public function getAll()
