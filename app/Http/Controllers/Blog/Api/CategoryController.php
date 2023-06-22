@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\Categoty\StoreCategoryRequest;
 use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CategoryController extends Controller
 {
@@ -26,7 +28,7 @@ class CategoryController extends Controller
         return $this->application->getAll();
     }
 
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
         $data = $request->validated();
 
@@ -36,6 +38,6 @@ class CategoryController extends Controller
             parentId: $data['parent_id'] ?? null,
         );
 
-        return response($category, status: 201);
+        return response()->json($category, ResponseAlias::HTTP_CREATED);
     }
 }

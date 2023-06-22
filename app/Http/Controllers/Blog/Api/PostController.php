@@ -19,16 +19,21 @@ class PostController extends Controller
     {
     }
 
+    public function get(int $postId): JsonResponse
+    {
+        return response()->json($this->application->get($postId));
+    }
+
     public function index(): JsonResponse
     {
         return response()->json($this->application->getAll());
     }
 
-    public function store(StorePostRequest $request): ResponseFactory|\Illuminate\Contracts\Foundation\Application|Response
+    public function store(StorePostRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        $this->application->createPost(
+        $post = $this->application->createPost(
             categoryId: $data['category_id'],
             userId: $data['user_id'],
             title: $data['title'],
@@ -36,7 +41,7 @@ class PostController extends Controller
             contentRaw: $data['content_raw'],
         );
 
-        return response(status: ResponseAlias::HTTP_CREATED);
+        return response()->json($post, ResponseAlias::HTTP_CREATED);
     }
 
     public function update(UpdatePostRequest $request, int $id): Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory

@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Collection;
 class PostRepository implements PostRepositoryInterface
 {
 
-    public function find(int $int): BlogPost
+    public function find(int $int): ?BlogPost
     {
-        return BlogPost::find($int);
+        return BlogPost::findOrFail($int);
     }
 
-    public function store(array $data): int
+    public function store(array $data): BlogPost
     {
         $post = new BlogPost();
         $post->category_id = $data['category_id'];
@@ -27,7 +27,8 @@ class PostRepository implements PostRepositoryInterface
         $post->slug = $data['slug'];
         $post->content_html = $data['content_html'];
         $post->saveOrFail();
-        return $post->id;
+
+        return $post;
     }
 
     public function getAll(): Collection|array

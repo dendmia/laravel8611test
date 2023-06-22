@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Blog\Api;
 
 use App\Infrastructure\Blog\Post\Repository\PostRepository;
+use App\Models\BlogPost;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
@@ -14,7 +16,24 @@ class PostControllerTest extends TestCase
     {
         $response = $this->get($this->apiUrl . '/api' . '/post');
 
-        $response->assertStatus(200);
+        $response->assertStatus(ResponseAlias::HTTP_OK);
+    }
+
+    public function testGetPost(): void
+    {
+        $response = $this->post(
+            uri: $this->apiUrl . '/api' . '/post',
+            data: [
+                'category_id' => 2,
+                'user_id' => 1,
+                'title' => 'test post',
+                'content_raw' => 'Soluta aut recusandae minima iusto aut magnam eum officiis eius adipisci fuga.',
+            ]
+        );
+
+        $response = $this->get($this->apiUrl . '/api' . '/post/' . $response['id']);
+
+        $response->assertStatus(ResponseAlias::HTTP_OK);
     }
 
     public function testStorePost(): void
@@ -34,10 +53,10 @@ class PostControllerTest extends TestCase
 
     public function testUpdatePost(): void
     {
-        $id = $this->createPost();
+        $post = $this->createPost();
 
         $response = $this->put(
-            uri: $this->apiUrl . '/api' . '/post'. '/' . $id,
+            uri: $this->apiUrl . '/api' . '/post'. '/' . $post->id,
             data: [
                 'category_id' => 3,
                 'user_id' => 1,
@@ -50,7 +69,7 @@ class PostControllerTest extends TestCase
         $response->assertNoContent();
     }
 
-    private function createPost(): int
+    private function createPost(): BlogPost
     {
         $data = [
             'category_id' => 2,

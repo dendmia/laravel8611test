@@ -18,7 +18,7 @@ class CategoryControllerTest extends TestCase
             $this->apiUrl . '/api' . '/category',
             [
                 'title' => 'test_category' . random_int(1000, 9999),
-                'description' => 'test_description'
+                'description' => 'test_description',
             ],
         );
 

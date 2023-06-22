@@ -8,9 +8,9 @@ use App\Models\BlogPost;
 
 interface PostRepositoryInterface
 {
-    public function find(int $int): BlogPost;
+    public function find(int $int): ?BlogPost;
 
-    public function store(array $data): int;
+    public function store(array $data): BlogPost;
 
     public function getAll();
 

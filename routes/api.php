@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/test_get', [TestApiController::class, 'testGet'])->middleware(TestApiMiddleware::class);
 
+Route::get('/post/{postId}', [PostController::class, 'get'])->whereNumber('postId');
 Route::get('/post', [PostController::class, 'index']);
 Route::post('/post', [PostController::class, 'store']);
 Route::put('/post/{id}', [PostController::class, 'update'])->whereNumber('id');
