@@ -12,7 +12,8 @@ class Application
 {
     public function __construct(
         private readonly CategoryRepositoryInterface $repository,
-    ) {
+    )
+    {
     }
 
     public function get(int $id): ?BlogCategory

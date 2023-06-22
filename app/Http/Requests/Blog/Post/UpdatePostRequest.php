@@ -11,7 +11,20 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'category_id' => [
+                'integer',
+            ],
+            'user_id' => [
+                'integer',
+            ],
+            'title' => [
+                'string',
+            ],
+            'except' => [
+            ],
+            'content_raw' => [
+                'string',
+            ],
         ];
     }
 }

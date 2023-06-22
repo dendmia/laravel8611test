@@ -15,9 +15,10 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class PostController extends Controller
 {
-    public function __construct(private readonly Application $application) {
-
+    public function __construct(private readonly Application $application)
+    {
     }
+
     public function index(): JsonResponse
     {
         return response()->json($this->application->getAll());
@@ -41,7 +42,6 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, int $id): Response|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $data = $request->validated();
-$data = $request->all();
 
         $this->application->updatePost(
             id: $id,

@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Blog\Api;
 
+use Exception;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testGetOneCategory(): void
     {
         $category = $this->post(
             $this->apiUrl . '/api' . '/category',
             [
-                'title' => 'test_category' . time(),
+                'title' => 'test_category' . random_int(1000, 9999),
                 'description' => 'test_description'
             ],
         );
@@ -30,12 +34,15 @@ class CategoryControllerTest extends TestCase
         $response->assertOk();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testStoreCategory(): void
     {
         $response = $this->post(
             $this->apiUrl . '/api' . '/category',
             [
-                'title' => 'test_category' . time(),
+                'title' => 'test_category' . random_int(1000, 9999),
                 'description' => 'test_description'
             ],
         );
