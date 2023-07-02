@@ -14,7 +14,7 @@ class CommandPattern extends Command
     protected $description = 'Работа паттерна Комманда';
     public function handle(Invoker $invoker, Receiver $receiver): int
     {
-        $this->alert('паттерн Комманда');
+        $this->alert('Паттерн Комманда');
 
         $this->comment("1. Вызываем у вызывающего объекта Invoker метод setOnStart и передаем комманду параметром");
         $this->comment("2. Вызываем у Invoker метод setOnFinish и передаем туда сложную комманду ComplexCommand, которая будет делегировать " . PHP_EOL
